@@ -30,7 +30,11 @@ contract("WillCreator", function(accounts) {
     it("should change the child", async() => {
         let changeChildHash = await willContract.changeChild(addressC, {from: addressA});
         assert(await willContract.getChild({from: addressA}) == addressC, "child in will was not set correctly");
+    });
 
+    it("should add ether to will", async() => {
+        let addToWillHash = await willContract.addToWill({from: addressA, value: 100});
+        assert(await willContract.getValue({from: addressA}) == 200, "ether did not increase");
     });
 
 })

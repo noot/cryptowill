@@ -115,8 +115,8 @@ contract WillCreator {
     	// transfer eth from contract to owner-specified address
 	function transferEth(address receiver, uint amount) public myWillExists() {
 		require (myWill[msg.sender].value >= amount);
+		myWill[msg.sender].value = myWill[msg.sender].value - amount;
 	   	receiver.transfer(amount);
-	    	myWill[msg.sender].value = myWill[msg.sender].value - amount;
 	}
 
 	// deletes will if it exists
@@ -129,9 +129,9 @@ contract WillCreator {
 		isMentioned[myWill[msg.sender].child] = false;
 	}
 
-        function getWillInfo() public constant returns (uint, uint, uint, address){
-             require (doesWillExist[msg.sender]);
-             will storage senderWill = myWill[msg.sender];
-             return (senderWill.value, senderWill.timeToDeath, senderWill.timeLastCheckedIn, senderWill.child);
-        }
+	function getWillInfo() public constant returns (uint, uint, uint, address){
+	    require (doesWillExist[msg.sender]);
+	    will storage senderWill = myWill[msg.sender];
+	    return (senderWill.value, senderWill.timeToDeath, senderWill.timeLastCheckedIn, senderWill.child);
+	}
 }
