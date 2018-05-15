@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Material Design Bootstrap</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script type="text/javascript" src="js/truffle-contract.min.js"></script>
+    <script type="text/javascript" src="js/build.js"></script>
+</head>
+
+<body>
+<div style="height: 30vh;">
+    <div class="flex-center flex-column">
+        <h1 class="animated fadeIn mb-4">Sha Gucci Will </h1>
+        <h5 class="animated fadeIn mb-3">Plan for your ether to find the right home :)</h5>
+        <p class="animated fadeIn text-muted">The GUCCI Team</p>              
+    </div>
+    <form style="width:50%; margin:0 auto;" onsubmit="App.addWill(this)">
+        <div class="card card-body">
+            <h4 class="card-title">Contract Management</h4>
+            <p class="card-text">Some quick example text to build on the panel title and make up the bulk of the panel's content.</p>                           
+            <div class="flex-row">
+                <button class="btn btn-unique" type="submit">Still Alive</button>
+                <button class="btn btn-unique" type="submit">Kill Will</button>
+                <button class="btn btn-unique" type="submit">Deposit</button>
+                <button class="btn btn-unique" type="submit">Withdraw</button>
+            </div>
+        </div>
+        <br>
+        <label for="defaultFormRegisterNameEx" class="grey-text">Your Address</label>
+        <input type="text" id="defaultFormRegisterNameEx" class="form-control">                        
+        <br>        
+        <label for="defaultFormRegisterEmailEx" class="grey-text">Recipient Address</label>
+        <input type="text" id="defaultFormRegisterAddressEx" class="form-control">
+        <br>   
+        <label for="defaultFormRegisterEmailEx" class="grey-text">Amount(Ether)</label>
+        <input type="number" id="defaultFormRegisterEthEx" class="form-control">
+        <br>    
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Check In Period</button>
+            <div class="dropdown-menu dropdown-primary">
+                <a class="dropdown-item" href="#">1 Week</a>
+                <a class="dropdown-item" href="#">2 Weeks</a>
+                <a class="dropdown-item" href="#">1 Month</a>
+                <a class="dropdown-item" href="#">3 Months</a>
+                <a class="dropdown-item" href="#">6 Months</a>
+                <a class="dropdown-item" href="#">1 Year</a>
+                <a class="dropdown-item" href="#">1.5 Years </a>
+                <a class="dropdown-item" href="#">2 Years</a>
+            </div>
+            <button class="btn btn-unique" type="submit">Submit</button>
+            <hr>
+        </div>            
+    </form>
+</div>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/mdb.min.js"></script>
+</body>
+
+</html>

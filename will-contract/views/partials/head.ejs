@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Express Authentication</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <!-- load fontawesome -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css"> -->
+
+
+  <style>
+
+
+    /*accounts page */
+
+    .plus {
+      width: 70px;
+      cursor: pointer;
+      transition: all .3s ease 0s;
+      height: 70px;
+      background: #731DD8;
+      border-radius: 50%;
+      display: flex;
+      position: relative;
+    }
+
+    .plus__line {
+      width: 6px;
+      height: 50px;
+      background: white;
+      border-radius: 10px;
+      position: absolute;
+      left: calc(50% - 3px);
+      top: calc(50% - 25px);
+    }
+
+    .plus__line--h {
+      transform: rotate(90deg);
+    }
+
+    .plus__line--v {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      overflow: hidden;
+      transition: all .4s ease 0s;
+    }
+
+    .plus__link {
+      color: #fff;
+      font-size: 30px;
+      opacity: 0;
+      visibility: hidden;
+      transition: .3s ease 0s;
+      transform: scale(0.5);
+    }
+
+    .plus--active {
+      height: 32px;
+      border-radius: 30px;
+    }
+
+    .plus--active .plus__line--v {
+      height: 68px;
+      top: calc(-100% - 60px);
+      padding: 0 5px;
+      box-sizing: border-box;
+      width: 220px;
+      border-radius: 60px;
+      left: calc(50% - 110px);
+    }
+
+    .plus--active .plus__link {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+      transition-delay: .05s;
+    }
+
+    .centered {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      /* justify-content:flex-end; */
+      margin-left: 35px;
+     
+    }
+
+    .mainTopRowAccount {
+      margin-top: 50px;
+    }
+
+    #contractTypeOptions {
+      display: none;
+    }
+ 
+  
+
+    #aSignup,
+    #aCharity,
+    #aLogin,
+    #aAccount,
+    #aSignout {
+      color: black;
+      font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      text-transform: uppercase;
+    }
+
+
+    .cItem {
+      background-color: #93E5AB;
+      height: 60vh;
+    }
+
+    .cContainer {
+      width: 60%;
+      margin: 0 auto;
+    }
+
+    .cHeader {
+      padding-top: 15%;
+      margin: 0 auto;
+      text-align: center;
+      color: white;
+      font-family: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .cText {
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 3%;
+      color: white;
+      line-height: 1.5em;
+      font-family: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    .contractText {
+      line-height: 2em;
+      font-family: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 1.2em;
+      padding: 25px;
+      text-align: left;
+    }
+
+    .contractTitleHaeder {
+      font-family: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 1.3em;
+      font-weight: 400;
+    }
+
+    .carousel-control.left,
+    .carousel-control.right {
+      background-image: none !important;
+      filter: none !important;
+    }
+
+    #mainNav {
+      background-color: white;
+    }
+
+    #mainNav .navbar-toggler {
+      font-size: 12px;
+      right: 0;
+      padding: 13px;
+      text-transform: uppercase;
+      color: black;
+      border: 0;
+      /*    background-color: #B8CEAA;*/
+      font-family: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif
+    }
+
+    #mainNav .navbar-brand.active,
+    #mainNav .navbar-brand:active,
+    #mainNav .navbar-brand:focus,
+    #mainNav .navbar-brand:hover {
+      color: #B8CEAA
+    }
+
+
+    #mainNav .navbar-brand {
+      color: black;
+      font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, cursive
+    }
+
+    .menu {
+      width: 20px;
+      height: 2px;
+      background-color: black;
+      margin: 3px 0;
+      border-radius: 100px;
+    }
+
+    #mainNav .navbar-nav .nav-item .nav-link {
+      font-size: 80%;
+      font-weight: 400;
+      padding: .75em 0;
+      letter-spacing: 1px;
+      line-height: 25px;
+      color: black;
+      font-family: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif
+    }
+
+    #mainNav .navbar-nav .nav-item .nav-link.active,
+    #mainNav .navbar-nav .nav-item .nav-link:hover {
+      color: #B8CEAA;
+    }
+
+    @media (min-width:992px) {
+      #mainNav {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        -webkit-transition: padding-top .3s, padding-bottom .3s;
+        -moz-transition: padding-top .3s, padding-bottom .3s;
+        transition: padding-top .3s, padding-bottom .3s;
+        border: none;
+        /*        background-color: transparent*/
+      }
+      #mainNav .navbar-brand {
+        font-size: 1.2em;
+        -webkit-transition: all .3s;
+        -moz-transition: all .3s;
+        transition: all .3s;
+        text-transform: uppercase;
+        letter-spacing: 1px
+      }
+      #mainNav .navbar-nav .nav-item .nav-link {
+        padding: 1.1em 1em!important
+      }
+      #mainNav.navbar-shrink {
+        padding-top: 0;
+        padding-bottom: 0;
+        /*        background-color: #212529*/
+      }
+      #mainNav.navbar-shrink .navbar-brand {
+        font-size: 1.25em;
+        padding: 12px 0;
+      }
+    }
+
+    #mainNav .navbar-nav .nav-item .nav-link {
+      font-size: 80%;
+      font-weight: 400;
+      padding: .75em 0;
+      letter-spacing: 1px;
+      line-height: 25px;
+      color: black;
+      font-family: Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif
+    }
+
+    #mainNav .navbar-nav .nav-item .nav-link.active,
+    #mainNav .navbar-nav .nav-item .nav-link:hover {
+      color: #B8CEAA;
+    }
+
+    @media (min-width:992px) {
+      #mainNav {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        -webkit-transition: padding-top .3s, padding-bottom .3s;
+        -moz-transition: padding-top .3s, padding-bottom .3s;
+        transition: padding-top .3s, padding-bottom .3s;
+        border: none;
+        /*        background-color: transparent*/
+      }
+      #mainNav .navbar-brand {
+        font-size: 1.2em;
+        -webkit-transition: all .3s;
+        -moz-transition: all .3s;
+        transition: all .3s;
+        text-transform: uppercase;
+        letter-spacing: 1px
+      }
+      #mainNav .navbar-nav .nav-item .nav-link {
+        padding: 1.1em 1em!important
+      }
+      #mainNav.navbar-shrink {
+        padding-top: 0;
+        padding-bottom: 0;
+        /*        background-color: #212529*/
+      }
+      #mainNav.navbar-shrink .navbar-brand {
+        font-size: 1.25em;
+        padding: 12px 0;
+      }
+    }
+
+    @media (max-width:600px) {
+      h2 {
+        font-size: 1.2em;
+      }
+
+      h4 {
+        font-size: .9em;
+      }
+
+      .cContainer {
+        width: 70%;
+        padding-top: 10%;
+        margin: 0 auto;
+      }
+
+      .cText {
+        padding-top: 5%;
+        line-height: 1.5em;
+      }
+
+      #accountPageTitle {
+        margin-left: 5%;
+      }
+
+    }
+  </style>
+
+</head>
