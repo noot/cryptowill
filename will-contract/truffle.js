@@ -1,5 +1,5 @@
 var HDWalletProvider = require("truffle-hdwallet-provider");
-var mnemonic = "type car bar size remove grunt blood wisdom face speak banana spot world knock bicycle";
+var mnemonic;
 
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
