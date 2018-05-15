@@ -2,7 +2,7 @@ import './Libraries/SafeMath.sol';
 
 pragma solidity 0.4.23;
 
-/* WILL CREATION SMART CONTRACT */
+/* WILL CREATION SMART CONTRACT */ 
 contract WillCreator {
 	using SafeMath for uint256;
 

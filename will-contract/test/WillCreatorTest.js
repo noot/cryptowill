@@ -1,6 +1,6 @@
 var WillCreator = artifacts.require("WillCreator");
 
-contract("WillCreator", function(accounts) {
+contract("WillCreator", function(accounts) { 
     var addressA = accounts[0];
     var addressB = accounts[1];
     var addressC = accounts[2];
