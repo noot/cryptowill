@@ -1,5 +1,5 @@
 var WillCreator = artifacts.require("./WillCreator.sol");
 
 module.exports = function(deployer) { 
-  deployer.deploy(WillCreator, {gas: 4600000});
+  deployer.deploy(WillCreator, {gas: 3000000});
 };

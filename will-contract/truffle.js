@@ -1,5 +1,6 @@
+var secrets = require("./secrets.json");
 var HDWalletProvider = require("truffle-hdwallet-provider");
-var mnemonic;
+//var mnemonic = secrets.mnemonic;
 
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
@@ -9,17 +10,18 @@ module.exports = {
       host: "127.0.0.1",
       port: 8545,
       network_id: "*", // Match any network id
-      gas: 1000000,
+      gas: 3000000,
       gasLimit: 46000000
    },
    ropsten: {
-      provider: new HDWalletProvider(mnemonic, "https://ropsten.infura.io/"),
+      provider: new HDWalletProvider(secrets.mnemonic, "https://ropsten.infura.io/"),
       network_id: "*",
-      gas: 200000,
-      gasLimit: 67000000
+      gas: 1000000,
+      gasLimit: 67000000,
+      gasPrice: 20000000000 //wei
    },
    mainnet: {
-      provider: new HDWalletProvider(mnemonic, "https://mainnet.infura.io/gpcq2PXJhM3TALrZmuhX"),
+      provider: new HDWalletProvider(secrets.mnemonic, "https://mainnet.infura.io/gpcq2PXJhM3TALrZmuhX"),
       network_id: 1,
       gas: 1000000,
       gasLimit: 67000000
