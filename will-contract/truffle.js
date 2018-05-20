@@ -18,7 +18,7 @@ module.exports = {
       network_id: "*",
       gas: 1000000,
       gasLimit: 67000000,
-      gasPrice: 20000000000 //wei
+      gasPrice: web3.utils.toWei(20, "gwei") 
    },
    mainnet: {
       provider: new HDWalletProvider(secrets.mnemonic, "https://mainnet.infura.io/gpcq2PXJhM3TALrZmuhX"),
