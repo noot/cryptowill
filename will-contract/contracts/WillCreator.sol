@@ -12,6 +12,9 @@ contract WillCreator {
     	owner = msg.sender;
     }
 
+    // for testing
+    //event ReleasedEth(address _child, address _parent, bool willExists);
+
 	struct will{
 		uint value;
 		uint timeToDeath;
@@ -22,6 +25,7 @@ contract WillCreator {
 	
 	mapping (address => will) public myWill;
 	mapping (address => bool) public doesWillExist;
+	mapping (address => address) public parent;
 	
 	// fallback: return eth to msg.sender
 	function () public payable {
@@ -40,6 +44,7 @@ contract WillCreator {
 		myWill[msg.sender].isValid = true;
 
 		doesWillExist[msg.sender] = true;
+		parent[_child] = msg.sender;
 	}
 
 
@@ -60,14 +65,25 @@ contract WillCreator {
 	// if child of a parent who has died calls this function, send total eth in the will to them
 	// if the current time is past the time of last check-in plus the user-set time until death 
 	// child must know the address of the parent
-	function releaseEth(address _parent) public returns (bool) {
-		require (myWill[_parent].child == msg.sender);
-		require (myWill[_parent].timeLastCheckedIn + myWill[_parent].timeToDeath <= block.timestamp);
+	function releaseEth() public returns (bool) {
+		//emit ReleasedEth(msg.sender, parent[msg.sender], doesWillExist[parent[msg.sender]]);
+		require(doesWillExist[parent[msg.sender]] == true);
+		require(myWill[parent[msg.sender]].timeLastCheckedIn + myWill[parent[msg.sender]].timeToDeath <= block.timestamp);
 
-		uint val = myWill[_parent].value;
-		myWill[_parent].value = 0;
+		uint val = myWill[parent[msg.sender]].value;
+		myWill[parent[msg.sender]].value = 0;
+		myWill[parent[msg.sender]].isValid = false;
+		parent[msg.sender] = address(0);
 		msg.sender.transfer(val);	
 		return true;
+	}
+
+	function getParent() public view returns (address) {
+		return parent[msg.sender];
+	}
+
+	function isWillValid(address _a) public view returns (bool) {
+		return myWill[_a].isValid;
 	}
 
 	function doesMyWillExist() public view returns (bool) {
@@ -92,8 +108,11 @@ contract WillCreator {
 
 	// allows parent to change the child
 	// child can now be assigned to another will
-	function changeChild(address _a) public myWillExists() returns (bool) {
-		myWill[msg.sender].child = _a;
+	function changeChild(address _newChild) public myWillExists() returns (bool) {
+		require(parent[_newChild] == address(0));
+		parent[myWill[msg.sender].child] = address(0);
+		myWill[msg.sender].child = _newChild;
+		parent[_newChild] = msg.sender;
 		return true;
 	}
 

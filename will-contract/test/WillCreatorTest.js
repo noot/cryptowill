@@ -1,4 +1,7 @@
 var WillCreator = artifacts.require("WillCreator");
+//var Web3 = require('web3');
+//var web3 = new Web3(Web3.givenProvider || "ws://localhost:8546");
+
 
 contract("WillCreator", function(accounts) { 
     var addressA = accounts[0];
@@ -88,15 +91,29 @@ contract("WillCreator", function(accounts) {
         assert(await willContract.getTimePeriod({from: addressA}) == 1, "did not change time period");
     });
 
+    it("should get parent", async() => {
+        let parentOfC = await willContract.getParent({from: addressC});
+        let parentOfB = await willContract.getParent({from: addressB});
+        assert(parentOfC == addressA, "incorrect parent");
+        assert(parentOfB == 0x0, "incorrect parent");
+        assert(await willContract.isWillValid(addressA));
+    })
+
     it("should release eth", async() => {
+        var events = willContract.allEvents({fromBlock: 0, toBlock: 'latest'});
+
+        events.watch(function(error, result) {
+            console.log(result);
+        });
+
         console.log("\t\t balance of accountC before: " + await web3.eth.getBalance(addressC));
         console.log("\t\t last check in time: " + await willContract.getTimeLastCheckedIn(addressA, {from: addressC}));
         console.log("\t\t time period to death: " + await willContract.getTimePeriod({from: addressA}));
         console.log("\t\t block.timestamp: " + web3.eth.getBlock("pending").timestamp);
         console.log("\t\t balance of accountA's will before: " + await willContract.getValue({from: addressA}));
 
-        let releaseEthHash = await willContract.releaseEth(addressA, {from: addressC});
-        let releaseEthRes = await willContract.releaseEth.call(addressA, {from: addressC});
+        let releaseEthRes = await willContract.releaseEth.call({from: addressC});
+        let releaseEthHash = await willContract.releaseEth({from: addressC});
 
         console.log("\t\t balance of accountA's will after: " + await willContract.getValue({from: addressA}));
         console.log("\t\t balance of accountC after: " + await web3.eth.getBalance(addressC));
