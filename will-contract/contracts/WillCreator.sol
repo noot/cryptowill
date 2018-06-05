@@ -1,6 +1,6 @@
 import './Libraries/SafeMath.sol';
 
-pragma solidity 0.4.23;
+pragma solidity 0.4.24;
 
 /* WILL CREATION SMART CONTRACT */ 
 contract WillCreator {

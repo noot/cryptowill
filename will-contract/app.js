@@ -11,7 +11,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 var mongoose = require('mongoose');
-var flash = require('connect-flash');
+//var flash = require('connect-flash');
 var session = require('express-session');
 
 var routes = require('./routes/index');
@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: 'shhsecret', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
+//app.use(flash());
 
 //require('./config/passport')(passport);
 
