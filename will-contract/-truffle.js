@@ -1,6 +1,9 @@
 var secrets = require("./secrets.json");
 var HDWalletProvider = require("truffle-hdwallet-provider");
 //var mnemonic = secrets.mnemonic;
+var Web3 = require('web3');
+var web3 = new Web3(Web3.givenProvider || "ws://localhost:8546");
+
 
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
@@ -18,7 +21,7 @@ module.exports = {
       network_id: "*",
       gas: 1000000,
       gasLimit: 67000000,
-      gasPrice: web3.utils.toWei(20, "gwei") 
+      gasPrice: web3.utils.toWei("20", "gwei") 
    },
    mainnet: {
       provider: new HDWalletProvider(secrets.mnemonic, "https://mainnet.infura.io/gpcq2PXJhM3TALrZmuhX"),
