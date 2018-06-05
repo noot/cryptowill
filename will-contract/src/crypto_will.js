@@ -73,7 +73,7 @@ window.App = {
         console.log('coinbase ' + web3.eth.coinbase);
 
         WillContract.deployed().then(function(instance) {
-            return instance.releaseEth(web3.eth.coinbase, { gas: 2000000 });
+            return instance.releaseEth({ gas: 2000000 });
         }).then(function(err, txid){
             console.log('ETH released. errors?: ' + err);
             //web3.eth.getTransactionReceipt(txid, function(err, receipt){

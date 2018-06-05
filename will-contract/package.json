@@ -13,7 +13,6 @@
     "on-headers": "^1.0.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "permissions": "0.0.0",
     "regexp-clone": "0.0.1",
     "require_optional": "^1.0.1",
     "resolve-from": "^4.0.0",
